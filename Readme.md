@@ -2,7 +2,7 @@ Machine Learning API with FastAPI and Streamlit
 ===============================================
 
 This project provides a Machine Learning API using FastAPI for training and predicting with a logistic regression model, and a Streamlit web application for interacting with the API, including a GPT-3 chatbot.
-## groupe members:
+## Groupe members:
 - Sif-eddine Khelafi
 - Abdelhak BENADJAOUD
 
