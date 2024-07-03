@@ -39,27 +39,21 @@ Installation
 
 1.  **Clone the repository**:
 
-    sh
 
-    Copier le code
 
-    `git clone https://github.com/ziifou/machineLearningProject
+    `git clone https://github.com/yourusername/ml-api-fastapi-streamlit.git
     cd ml-api-fastapi-streamlit`
 
 2.  **Create a virtual environment**:
 
-    sh
 
-    Copier le code
 
     `python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate``
 
 3.  **Install the dependencies**:
 
-    sh
 
-    Copier le code
 
     `pip install -r requirements.txt`
 
@@ -72,9 +66,7 @@ Usage
 
 Run the FastAPI server:
 
-sh
 
-Copier le code
 
 `uvicorn main:app --reload`
 
@@ -82,9 +74,6 @@ Copier le code
 
 In a new terminal, run:
 
-sh
-
-Copier le code
 
 `streamlit run app.py`
 
@@ -98,9 +87,6 @@ Endpoints
 -   **Description**: Trains a logistic regression model with the provided data.
 -   **Request Body**:
 
-    json
-
-    Copier le code
 
     `{
         "data": [[...], [...], ...],
@@ -109,9 +95,6 @@ Endpoints
 
 -   **Response**:
 
-    json
-
-    Copier le code
 
     `{
         "message": "Modèle entraîné avec succès"
@@ -124,9 +107,7 @@ Endpoints
 -   **Description**: Predicts the class for the provided data.
 -   **Request Body**:
 
-    json
 
-    Copier le code
 
     `{
         "data": [[...]]
@@ -134,9 +115,7 @@ Endpoints
 
 -   **Response**:
 
-    json
 
-    Copier le code
 
     `{
         "predictions": ["Malade", "Sain", ...]
@@ -149,9 +128,7 @@ Endpoints
 -   **Description**: Get a response from GPT-3.5-turbo for the provided message.
 -   **Request Body**:
 
-    json
 
-    Copier le code
 
     `{
         "message": "Your prompt here"
@@ -159,9 +136,6 @@ Endpoints
 
 -   **Response**:
 
-    json
-
-    Copier le code
 
     `{
         "response": "GPT-3 response here"
