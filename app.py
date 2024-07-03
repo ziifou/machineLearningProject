@@ -59,9 +59,15 @@ with st.form("prediction_form"):
         response = requests.post("http://127.0.0.1:8000/predict", json={
             "data": user_input.values.tolist()
         })
+        if response.status_code == 200:
+            prediction = response.json().get("prediction", "")
+            if prediction=="Malade":
+                st.info(f"Prédiction: {prediction}")
+            elif prediction=="Sain":
+                st.success(f"Prédiction: {prediction}")
         st.write(response.json())
 
-
+# GPT-3 Chatbot section
 st.title("GPT-3 Chatbot with FastAPI and Streamlit")
 
 prompt = st.text_area("Enter your prompt:", "")
@@ -73,7 +79,6 @@ if st.button("Get Response"):
             json={"message": prompt}
         )
         if response.status_code == 200:
-            print("sifou ",response)
             gpt_response = response.json().get("response", "")
             st.text_area("GPT-3 Response:", gpt_response, height=200)
         else:
