@@ -61,8 +61,22 @@ with st.form("prediction_form"):
         })
         st.write(response.json())
 
-# Section for model information
-st.header("Informations du modèle")
-if st.button("Obtenir des informations"):
-    response = requests.get("http://127.0.0.1:8000/model")
-    st.write(response.json())
+
+st.title("GPT-3 Chatbot with FastAPI and Streamlit")
+
+prompt = st.text_area("Enter your prompt:", "")
+
+if st.button("Get Response"):
+    if prompt.strip():
+        response = requests.post(
+            "http://127.0.0.1:8000/gpt-response",
+            json={"message": prompt}
+        )
+        if response.status_code == 200:
+            print("sifou ",response)
+            gpt_response = response.json().get("response", "")
+            st.text_area("GPT-3 Response:", gpt_response, height=200)
+        else:
+            st.error("Error: " + response.json().get("detail", "Unknown error"))
+    else:
+        st.warning("Please enter a prompt.")

@@ -3,6 +3,17 @@ from pydantic import BaseModel
 import joblib
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from openai import OpenAI
+client = OpenAI("")
+
+
+class Message(BaseModel):
+    text: str
+
+class Response(BaseModel):
+    reply: str
+
+
 
 app = FastAPI(
     title="API de Machine Learning",
@@ -25,7 +36,7 @@ def train_model(train_data: TrainData):
         y = pd.Series(train_data.target)
         model = LogisticRegression()
         model.fit(X, y)
-        joblib.dump(model, 'model/model.pkl')
+        joblib.dump(model, './model.pkl')
         return {"message": "Modèle entraîné avec succès"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -33,7 +44,7 @@ def train_model(train_data: TrainData):
 @app.post("/predict", tags=["Model Prediction"], summary="Faire une prédiction")
 def predict(data: PredictData):
     try:
-        model = joblib.load('model/model.pkl')
+        model = joblib.load('./model.pkl')
         X = pd.DataFrame(data.data)
         predictions = model.predict(X)
         prediction =  predictions.tolist().pop()
@@ -44,7 +55,20 @@ def predict(data: PredictData):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get("/model", tags=["External API"], summary="Obtenir des informations du modèle")
-def get_model_info():
-    # Exemple avec OpenAI ou HuggingFace
-    return {"message": "API externe appelée avec succès"}
+class ChatRequest(BaseModel):
+    message: str
+
+class ChatResponse(BaseModel):
+    response: str
+
+
+@app.post("/gpt-response")
+async def chat(request: ChatRequest):
+    print(request)
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": request.message},
+    ]
+    )
+    return {"response": completion.choices[0].message}

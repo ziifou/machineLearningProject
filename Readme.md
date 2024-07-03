@@ -1,10 +1,10 @@
 # Projet de Machine Learning API
 
 ## Description
-Ce projet permet d'entraîner un modèle de machine learning et de faire des prédictions via une API développée avec FastAPI.
+Ce projet permet d'entraîner un modèle de machine learning et de faire des prédictions via une API développée avec FastAPI et un front avec streamlint
 
 ## Membres de l'équipe
-- sifeddine khelafi
-- abdelhak bendada
+- Sif-eddine Khelafi
+- Abdelhak BENADJAOUD
 
 ## Lien du projet GitHub
